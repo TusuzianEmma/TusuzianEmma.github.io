@@ -22,4 +22,14 @@ h2
         font-family: 'Gloria Hallelujah', cursive;
         font-weight: 300;
         font-size: 20px;
+        margin-bottom: -20px;
+    }
+
+p
+    {
+        color: white;
+        text-align: center;
+        font-family: 'Gloria Hallelujah', cursive;
+        font-weight: 300;
+        font-size: 15px;
     }
