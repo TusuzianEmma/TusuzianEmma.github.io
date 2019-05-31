@@ -1,9 +1,25 @@
 body
     {
+        text-align: center;
+        background-color: #dfbf9f;
+        background-size: 100%;
+    }
+
+h1
+    {
         color: white;
         text-align: center;
-        background-color: #ccccff;
-        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-family: 'Gloria Hallelujah', cursive;
+        font-weight: 500;
+        font-size: 50px;
+        margin-bottom: -30px;
+    }
+
+h2
+    {
+        color: white;
+        text-align: center;
+        font-family: 'Gloria Hallelujah', cursive;
         font-weight: 300;
-        font-size: 200;
+        font-size: 20px;
     }
