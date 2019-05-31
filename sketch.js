@@ -12,13 +12,17 @@ var numGroundSprites;
 var player;
 
 var obstacleSprites;
+var pointSprites;
+
 
 function setup() {
+
     isGameOver = false;
     score = 0;
 
-    createCanvas(900, 800);
+    createCanvas(700, 500);
     background(169, 228, 219);
+
 
     groundSprites = new Group();
 
@@ -30,18 +34,22 @@ function setup() {
     groundSprites.add(groundSprite);
     }
 
-    player = createSprite(100, height-75, 100, 100);
+    player = createSprite(100, height-75, 70, 70);
     player.shapeColor = color(228, 169, 187);
     obstacleSprites = new Group();
+    pointSprites = new Group();
 }
+
 
 function draw() {
     if (isGameOver) {
-        background(0, 0, 179);
+        background(156, 205, 205);
         fill(255);
         textAlign(CENTER);
         textSize(50);
+        textFont('Gloria Hallelujah');
         text("Your score was: " + score, camera.position.x, camera.position.y - 20);
+        textSize(30);
         text("Game Over! Click anywhere to restart", camera.position.x, camera.position.y + 30);
     } else {
         background(169, 228, 219);
@@ -67,11 +75,12 @@ function draw() {
             groundSprites.add(firstGroundSprite);
         }
 
-        if (random() > 0.97) {
+        if (random() > 0.98) {
             var obstacle = createSprite(camera.position.x + width, random((height-50)-15), 30, 30);
             obstacle.draw = function() {ellipse(0,0,40)};
             obstacleSprites.add(obstacle);
         }
+
 
         var firstObstacle = obstacleSprites[0];
         if (obstacleSprites.length > 0 && firstObstacle.position.x <= camera.position.x - (width/2 + firstObstacle.width/2)) {
@@ -80,12 +89,36 @@ function draw() {
 
         obstacleSprites.overlap(player, endGame);
 
+        if (random() > 0.995) {
+            var point = createSprite(camera.position.x + width, random((height-70)-15), 50, 50);
+            point.draw = function() {fill(255, 255, 153); quad(38, 51, 86, 20, 69, 63, 30, 10)};
+            pointSprites.add(point);
+        }
+
+
+        pointSprites.overlap(player, addPoints);
+        pointSprites.overlap(player, removeSprite);
+
+
+
         drawSprites();
 
         score = score + 1;
+        fill(255);
         textAlign(CENTER);
-        text(score, camera.position.x, 10);
+        textSize(40);
+        textFont('Gloria Hallelujah');
+        text(score, camera.position.x, 35);
     }
+}
+
+
+function addPoints() {
+    score = score + 100;
+}
+
+function removeSprite() {
+    removeSprite(point);
 }
 
 function endGame() {
@@ -94,7 +127,6 @@ function endGame() {
 
 function mouseClicked() {
   if (isGameOver) {
-
     for (var n = 0; n < numGroundSprites; n++) {
       var groundSprite = groundSprites[n];
       groundSprite.position.x = n*50;
